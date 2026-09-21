@@ -1,0 +1,15 @@
+﻿build/
+*.o
+*.obj
+*.exe
+*.a
+*.dll
+*.so
+.idea/
+.vscode/
+.cursor/
+.DS_Store
+Thumbs.db
+CMakeCache.txt
+CMakeFiles/
+.local-full/
