@@ -10,13 +10,15 @@ Language sketch:
 
 ## Status
 
-Project scaffolding is in place. Compiler, VM, CLI, and build scripts will land in follow-up commits.
+Public header with opcodes, `Program`, and `VmResult` is in place. Compiler, VM, CLI, and build scripts will land in follow-up commits.
 
-## Planned usage
+## Library (so far)
 
-```powershell
-.\build.bat
-.\build\formula-vm.exe --file samples\demo.fvm
+```cpp
+#include "formula_vm.hpp"
+
+// formulavm::Op, Instruction, Program, VmResult
+// formulavm::compile / formulavm::run (coming next)
 ```
 
 ## Requirements
