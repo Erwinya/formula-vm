@@ -35,7 +35,7 @@ struct VmResult {
     std::unordered_map<std::string, double> vars;
 };
 
-/// Compile source into bytecode. Implemented in a follow-up commit.
+/// Compile source into bytecode (assignments, print, + - * /).
 Program compile(const std::string &source);
 
 /// Execute a compiled program. Implemented in a follow-up commit.

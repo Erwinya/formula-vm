@@ -10,15 +10,15 @@ Language sketch:
 
 ## Status
 
-Public header with opcodes, `Program`, and `VmResult` is in place. Compiler, VM, CLI, and build scripts will land in follow-up commits.
+Public header and `compile()` bytecode compiler are in place. VM `run()`, CLI, and build scripts will land in follow-up commits.
 
 ## Library (so far)
 
 ```cpp
 #include "formula_vm.hpp"
 
-// formulavm::Op, Instruction, Program, VmResult
-// formulavm::compile / formulavm::run (coming next)
+auto program = formulavm::compile("x = 1 + 2 * 3\nprint x\n");
+// formulavm::run(program) coming next
 ```
 
 ## Requirements
