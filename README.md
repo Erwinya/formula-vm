@@ -10,7 +10,7 @@ Language sketch:
 
 ## Status
 
-Public header and `compile()` bytecode compiler are in place. VM `run()`, CLI, and build scripts will land in follow-up commits.
+`compile()` and stack VM `run()` are in place. CLI and build scripts will land in follow-up commits.
 
 ## Library (so far)
 
@@ -18,7 +18,8 @@ Public header and `compile()` bytecode compiler are in place. VM `run()`, CLI, a
 #include "formula_vm.hpp"
 
 auto program = formulavm::compile("x = 1 + 2 * 3\nprint x\n");
-// formulavm::run(program) coming next
+auto result = formulavm::run(program);
+// result.printed, result.vars
 ```
 
 ## Requirements

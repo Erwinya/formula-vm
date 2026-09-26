@@ -38,7 +38,7 @@ struct VmResult {
 /// Compile source into bytecode (assignments, print, + - * /).
 Program compile(const std::string &source);
 
-/// Execute a compiled program. Implemented in a follow-up commit.
+/// Execute a compiled program on the stack VM.
 VmResult run(const Program &program);
 
 }  // namespace formulavm

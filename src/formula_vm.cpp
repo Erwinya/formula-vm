@@ -182,8 +182,59 @@ Program compile(const std::string &source) {
     return Compiler(source).compile();
 }
 
-VmResult run(const Program & /*program*/) {
-    throw std::runtime_error("run() not implemented yet");
+VmResult run(const Program &program) {
+    VmResult result;
+    std::vector<double> stack;
+    for (const Instruction &ins : program.code) {
+        switch (ins.op) {
+            case Op::LoadConst:
+                stack.push_back(ins.number);
+                break;
+            case Op::LoadVar: {
+                auto it = result.vars.find(ins.name);
+                if (it == result.vars.end()) {
+                    throw std::runtime_error("undefined variable: " + ins.name);
+                }
+                stack.push_back(it->second);
+                break;
+            }
+            case Op::StoreVar: {
+                if (stack.empty()) throw std::runtime_error("stack underflow");
+                result.vars[ins.name] = stack.back();
+                stack.pop_back();
+                break;
+            }
+            case Op::Add:
+            case Op::Sub:
+            case Op::Mul:
+            case Op::Div: {
+                if (stack.size() < 2) throw std::runtime_error("stack underflow");
+                double b = stack.back();
+                stack.pop_back();
+                double a = stack.back();
+                stack.pop_back();
+                double r = 0.0;
+                if (ins.op == Op::Add) r = a + b;
+                if (ins.op == Op::Sub) r = a - b;
+                if (ins.op == Op::Mul) r = a * b;
+                if (ins.op == Op::Div) {
+                    if (b == 0.0) throw std::runtime_error("division by zero");
+                    r = a / b;
+                }
+                stack.push_back(r);
+                break;
+            }
+            case Op::Print: {
+                if (stack.empty()) throw std::runtime_error("stack underflow");
+                result.printed.push_back(stack.back());
+                stack.pop_back();
+                break;
+            }
+            case Op::Halt:
+                return result;
+        }
+    }
+    return result;
 }
 
 }  // namespace formulavm
