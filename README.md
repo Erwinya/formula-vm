@@ -10,19 +10,26 @@ Language sketch:
 
 ## Status
 
-Library (`compile` / `run`) and CLI entrypoint are in place. Makefile / `build.bat` will land in a follow-up commit.
+Ready for use: library, CLI, and build scripts (`Makefile`, `build.bat`).
 
-## Build (manual)
+## Build
 
-```powershell
-g++ -std=c++17 -I include -o formula-vm.exe src\formula_vm.cpp src\main.cpp
-.\formula-vm.exe --file samples\demo.fvm
+```bash
+make
+./formula-vm --file samples/demo.fvm
+```
+
+Windows (MinGW / LLVM):
+
+```bat
+build.bat
+build\formula-vm.exe --file samples\demo.fvm
 ```
 
 Or pipe source on stdin:
 
 ```powershell
-"x = 2 + 3`nprint x" | .\formula-vm.exe
+"x = 2 + 3`nprint x" | .\build\formula-vm.exe
 ```
 
 ## Library
