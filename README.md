@@ -10,7 +10,7 @@ Language sketch:
 
 ## Status
 
-Ready for use: library, CLI, and build scripts (`Makefile`, `build.bat`).
+Ready for use: library, CLI, build scripts (`Makefile`, `build.bat`), and CI.
 
 ## Build
 
