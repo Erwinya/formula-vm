@@ -7,10 +7,11 @@ Language sketch:
 - `x = 1 + 2 * 3`
 - `print x`
 - comments with `#`
+- operator precedence: `* /` over `+ -`, unary `-`, parentheses
 
 ## Status
 
-Ready for use: library, CLI, build scripts (`Makefile`, `build.bat`), and CI.
+Library, CLI (`--file`, `--var`), unit tests, and CI.
 
 ## Build
 
@@ -26,10 +27,21 @@ build.bat
 build\formula-vm.exe --file samples\demo.fvm
 ```
 
-Or pipe source on stdin:
+Seed host variables:
 
 ```powershell
-"x = 2 + 3`nprint x" | .\build\formula-vm.exe
+.\build\formula-vm.exe --var rate=1.5 --var qty=10
+# then type: print rate * qty
+```
+
+## Test
+
+```bash
+make test
+```
+
+```bat
+build.bat test
 ```
 
 ## Library
@@ -37,9 +49,13 @@ Or pipe source on stdin:
 ```cpp
 #include "formula_vm.hpp"
 
-auto program = formulavm::compile("x = 1 + 2 * 3\nprint x\n");
-auto result = formulavm::run(program);
+auto program = formulavm::compile("print rate * qty\n");
+formulavm::Variables vars{{"rate", 1.5}, {"qty", 10.0}};
+auto result = formulavm::run(program, vars);
+// or: auto result = formulavm::evaluate("print rate * qty\n", vars);
 ```
+
+Exit codes: `0` ok, `1` runtime/compile error, `2` usage/IO.
 
 ## Requirements
 

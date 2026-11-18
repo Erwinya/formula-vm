@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build
-        run: make
-      - name: Smoke
-        run: ./formula-vm --file samples/demo.fvm
+      - name: Build and test
+        run: make test
+      - name: Smoke with seeded var
+        run: |
+          out=$(./formula-vm --file samples/demo.fvm)
+          test -n "$out"
