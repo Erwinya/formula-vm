@@ -35,10 +35,17 @@ struct VmResult {
     std::unordered_map<std::string, double> vars;
 };
 
+using Variables = std::unordered_map<std::string, double>;
+
 /// Compile source into bytecode (assignments, print, + - * /).
 Program compile(const std::string &source);
 
 /// Execute a compiled program on the stack VM.
 VmResult run(const Program &program);
+VmResult run(const Program &program, const Variables &initial_variables);
+
+/// Compile and run in one step.
+VmResult evaluate(const std::string &source);
+VmResult evaluate(const std::string &source, const Variables &initial_variables);
 
 }  // namespace formulavm

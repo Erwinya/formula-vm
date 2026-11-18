@@ -183,7 +183,12 @@ Program compile(const std::string &source) {
 }
 
 VmResult run(const Program &program) {
+    return run(program, Variables{});
+}
+
+VmResult run(const Program &program, const Variables &initial_variables) {
     VmResult result;
+    result.vars = initial_variables;
     std::vector<double> stack;
     for (const Instruction &ins : program.code) {
         switch (ins.op) {
@@ -235,6 +240,14 @@ VmResult run(const Program &program) {
         }
     }
     return result;
+}
+
+VmResult evaluate(const std::string &source) {
+    return evaluate(source, Variables{});
+}
+
+VmResult evaluate(const std::string &source, const Variables &initial_variables) {
+    return run(compile(source), initial_variables);
 }
 
 }  // namespace formulavm
